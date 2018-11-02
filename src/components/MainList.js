@@ -15,18 +15,14 @@ class MainList extends Component {
     }
   
     getUsersList() {
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', 'http://frontend-candidate.dev.sdh.com.ua/v1/contact/', true);
-            xhr.send();
-
-            if (xhr.status !== 200) {
-                 
-                console.log(xhr);
-                console.log(xhr.responseText);
-
-            } else {
-                console.log(xhr); 
-            }
+            fetch('http://frontend-candidate.dev.sdh.com.ua/v1/contact/')
+              .then(res => {
+              return res.json()
+            }).then(res => {
+                console.log(res);
+              }).catch((error) => {
+                console.log(error)
+              } );
     }
   
     render() {
