@@ -20,8 +20,10 @@ class MainList extends Component {
             xhr.send();
 
             if (xhr.status !== 200) {
-                console.log(xhr.responseText); 
+                 
                 console.log(xhr);
+                console.log(xhr.responseText);
+
             } else {
                 console.log(xhr); 
             }
