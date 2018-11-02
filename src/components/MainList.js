@@ -20,6 +20,9 @@ class MainList extends Component {
               return res.json()
             }).then(res => {
                 console.log(res);
+                this.setState({
+                  list_of_users: res,
+                })
               }).catch((error) => {
                 console.log(error)
               } );
