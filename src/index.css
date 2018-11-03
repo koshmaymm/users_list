@@ -8,3 +8,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.bDGender {
+  font-style: italic;
+  color: #696969;
+}
+
+.firstLastName {
+  text-decoration: underline;
+}
+
+.firstLastName:hover {
+  color: #adadad;
+  text-decoration: none;
+}

@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
+
+import { Jumbotron, Button } from 'react-bootstrap';
+
 import { USERS_LIST_URL } from '../constants/index';
 
 class MainList extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        list_of_users: null,
+        listOfUsers: null,
       };
   
       this.getUsersListData = this.getUsersListData.bind(this);
+      this.handleClick = this.handleClick.bind(this);
     }
   
     componentDidMount() {
@@ -21,20 +25,27 @@ class MainList extends Component {
               return res.json()
             }).then(res => {
                 this.setState({
-                  list_of_users: res,
+                  listOfUsers: res,
                 })
+                console.log(res);
               }).catch((error) => {
                 console.log(error)
-              } );
+              });
+    }
+
+    handleClick(item){
+      console.log(item);
+      console.log(item.id);
     }
 
     showUsersList() {
-  
-      if (this.state.list_of_users !== 0) {
-        return this.state.list_of_users.map((item) => (
-          <li key={item.id}>
-            {item.id}
-          </li>
+      if (this.state.listOfUsers !== 0) {
+        return this.state.listOfUsers.map((item) => (
+          <Jumbotron key={item.id}>
+            <h3 onClick={() => this.handleClick(item)} className="firstLastName">{item.first_name} {item.last_name}</h3>
+            <h4 className="bDGender">{item.birth_date} {item.gender}</h4>
+            <Button bsStyle="danger">DELETE</Button>
+          </Jumbotron>
         ));
       }
       return <p>You haven`t any users</p>;
@@ -42,12 +53,12 @@ class MainList extends Component {
   
     render() {
 
-      if (!this.state.list_of_users) {
+      if (!this.state.listOfUsers) {
         return 'Loading...';
       }
 
       return (
-        <h2>{this.showUsersList()}</h2>
+        <h4>{this.showUsersList()}</h4>
       );
     }
   }
