@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { USERS_LIST_URL } from '../constants/index';
 
 class MainList extends Component {
     constructor(props) {
@@ -15,7 +16,7 @@ class MainList extends Component {
     }
   
     getUsersList() {
-            fetch('http://frontend-candidate.dev.sdh.com.ua/v1/contact/')
+            fetch(USERS_LIST_URL)
               .then(res => {
               return res.json()
             }).then(res => {
