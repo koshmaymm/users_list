@@ -8,19 +8,18 @@ class MainList extends Component {
         list_of_users: null,
       };
   
-      this.getUsersList = this.getUsersList.bind(this);
+      this.getUsersListData = this.getUsersListData.bind(this);
     }
   
     componentDidMount() {
-      this.getUsersList();
+      this.getUsersListData();
     }
   
-    getUsersList() {
+    getUsersListData() {
             fetch(USERS_LIST_URL)
               .then(res => {
               return res.json()
             }).then(res => {
-                console.log(res);
                 this.setState({
                   list_of_users: res,
                 })
@@ -28,13 +27,27 @@ class MainList extends Component {
                 console.log(error)
               } );
     }
+
+    showUsersList() {
+  
+      if (this.state.list_of_users !== 0) {
+        return this.state.list_of_users.map((item) => (
+          <li key={item.id}>
+            {item.id}
+          </li>
+        ));
+      }
+      return <p>You haven`t any users</p>;
+    }
   
     render() {
+
       if (!this.state.list_of_users) {
         return 'Loading...';
       }
+
       return (
-        <h2>This is MainList Page</h2>
+        <h2>{this.showUsersList()}</h2>
       );
     }
   }
