@@ -87,7 +87,11 @@ class MainList extends Component {
       }
 
       return (
-        <h4>{this.showUsersList()}</h4>
+        <div>
+          <h1>Users Page</h1>
+          <br />
+          {this.showUsersList()}
+        </div>
       );
     }
   }
