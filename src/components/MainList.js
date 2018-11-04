@@ -8,11 +8,13 @@ class MainList extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        listOfUsers: null,
+        listOfUsers: [],
+        error: null,
       };
   
       this.getUsersListData = this.getUsersListData.bind(this);
       this.handleClick = this.handleClick.bind(this);
+      this.handleDelete = this.handleDelete.bind(this);
     }
   
     componentDidMount() {
@@ -25,17 +27,24 @@ class MainList extends Component {
               return res.json()
             }).then(res => {
                 this.setState({
-                  listOfUsers: res,
+                  listOfUsers: [...this.state.listOfUsers, ...res]
                 })
                 console.log(res);
-              }).catch((error) => {
-                console.log(error)
+              }).catch((err) => {
+                console.log(err)
+                this.setState({
+                  error: err.toString()
+                })
               });
     }
 
     handleClick(item){
       console.log(item);
       console.log(item.id);
+    }
+
+    handleDelete(item){
+      console.log(`user ${item.id} was deleted`);
     }
 
     showUsersList() {
@@ -48,7 +57,12 @@ class MainList extends Component {
                 {item.last_name}
             </h3>
             <h4 className="bDGender">{item.birth_date}&nbsp;{item.gender}</h4>
-            <Button bsStyle="danger">DELETE</Button>
+            <Button
+                bsStyle="danger"
+                onClick={() => this.handleDelete(item)}
+            >
+                  DELETE
+            </Button>
           </Jumbotron>
         ));
       }
@@ -59,6 +73,17 @@ class MainList extends Component {
 
       if (!this.state.listOfUsers) {
         return 'Loading...';
+      }
+
+      if (this.state.error) {
+        return (
+          <h1>
+            Some problem with users request
+            <br />
+            {this.state.error}
+          </h1>
+        ) 
+
       }
 
       return (
