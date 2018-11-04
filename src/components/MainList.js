@@ -41,9 +41,13 @@ class MainList extends Component {
     showUsersList() {
       if (this.state.listOfUsers !== 0) {
         return this.state.listOfUsers.map((item) => (
-          <Jumbotron key={item.id}>
-            <h3 onClick={() => this.handleClick(item)} className="firstLastName">{item.first_name} {item.last_name}</h3>
-            <h4 className="bDGender">{item.birth_date} {item.gender}</h4>
+          <Jumbotron key={item.id} className="card_user">
+            <h3 onClick={() => this.handleClick(item)} 
+                className="firstLastName">
+                {item.first_name}&nbsp;
+                {item.last_name}
+            </h3>
+            <h4 className="bDGender">{item.birth_date}&nbsp;{item.gender}</h4>
             <Button bsStyle="danger">DELETE</Button>
           </Jumbotron>
         ));

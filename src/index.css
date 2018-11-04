@@ -21,3 +21,8 @@ body {
   color: #adadad;
   text-decoration: none;
 }
+
+.card_user {
+  padding-bottom: 10px;
+  padding-top: 2px;
+}
