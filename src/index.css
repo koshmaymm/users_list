@@ -13,11 +13,12 @@ body {
   color: #696969;
 }
 
-.firstLastName {
+.firstLastName a {
   text-decoration: underline;
+  color: rgb(0, 0, 0);
 }
 
-.firstLastName:hover {
+.firstLastName a:hover {
   color: #adadad;
   text-decoration: none;
 }

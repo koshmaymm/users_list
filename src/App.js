@@ -8,6 +8,8 @@ import About from './components/About';
 import Contact from './components/Contact';
 import Code from './components/Code';
 
+import User from './components/User';
+
 import MainMenu from './nav/MainMenu';
 
 
@@ -24,6 +26,7 @@ class App extends Component {
           <Row>
             <Col xs={12} md={12}>
               <Route exact path="/" component={MainList} />
+              <Route path="/users/:id" component={User}/>
               <Route exact path="/about" component={About} />
               <Route exact path="/code" component={Code} />
               <Route exact path="/contact" component={Contact} />

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import { Link } from 'react-router-dom';
+
 import { Jumbotron, Button } from 'react-bootstrap';
 
 import { USERS_LIST_URL } from '../constants/index';
@@ -52,16 +54,19 @@ class MainList extends Component {
         return this.state.listOfUsers.map((item) => (
           <Jumbotron key={item.id} className="card_user">
             <h3 onClick={() => this.handleClick(item)} 
-                className="firstLastName">
+                className="firstLastName"
+            >
+              <Link to={`/users/${item.id}`}>
                 {item.first_name}&nbsp;
                 {item.last_name}
+              </Link>
             </h3>
             <h4 className="bDGender">{item.birth_date}&nbsp;{item.gender}</h4>
             <Button
                 bsStyle="danger"
                 onClick={() => this.handleDelete(item)}
             >
-                  DELETE
+              DELETE
             </Button>
           </Jumbotron>
         ));
