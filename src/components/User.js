@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+
+import axios from 'axios'
+
 import { USERS_LIST_URL } from '../constants/index';
 
 class User extends Component {
@@ -16,16 +19,22 @@ class User extends Component {
 
     componentDidMount() {
         this.getUserId();
+        this.getUserData();
     }
 
     getUserId() {
         const id = this.props.match.params.id;
-        this.setState({ id });
-        this.getUserData();
+        this.setState({ id }, () => {
+            this.getUserData();
+        });
+        
     }
 
     getUserData() {
-        console.log("HI");
+        if(this.state.id !== null) {
+            axios.get(`${USERS_LIST_URL}${this.state.id}`)
+            .then(response => console.log(response))
+        }
     }
 
     render() {

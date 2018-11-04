@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-
 import { Link } from 'react-router-dom';
-
 import { Jumbotron, Button } from 'react-bootstrap';
-
 import { USERS_LIST_URL } from '../constants/index';
 
 class MainList extends Component {
@@ -15,7 +12,6 @@ class MainList extends Component {
       };
   
       this.getUsersListData = this.getUsersListData.bind(this);
-      this.handleClick = this.handleClick.bind(this);
       this.handleDelete = this.handleDelete.bind(this);
     }
   
@@ -31,18 +27,11 @@ class MainList extends Component {
                 this.setState({
                   listOfUsers: [...this.state.listOfUsers, ...res]
                 })
-                console.log(res);
               }).catch((err) => {
-                console.log(err)
                 this.setState({
                   error: err.toString()
                 })
               });
-    }
-
-    handleClick(item){
-      console.log(item);
-      console.log(item.id);
     }
 
     handleDelete(item){
@@ -53,9 +42,7 @@ class MainList extends Component {
       if (this.state.listOfUsers !== 0) {
         return this.state.listOfUsers.map((item) => (
           <Jumbotron key={item.id} className="card_user">
-            <h3 onClick={() => this.handleClick(item)} 
-                className="firstLastName"
-            >
+            <h3 className="firstLastName">
               <Link to={`/users/${item.id}`}>
                 {item.first_name}&nbsp;
                 {item.last_name}
