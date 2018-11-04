@@ -19,7 +19,7 @@ class User extends Component {
 
     componentDidMount() {
         this.getUserId();
-        this.getUserData();
+        //this.getUserData();
     }
 
     getUserId() {
