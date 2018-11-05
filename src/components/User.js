@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { PageHeader, Button, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { USERS_LIST_URL } from '../constants/index';
 
@@ -101,7 +102,11 @@ class User extends Component {
                         {(!this.state.is_active && "inactive") || "active"}
                     </ListGroupItem>
                     <ListGroupItem bsStyle="warning">
-                        <Button bsStyle="warning">Edit</Button>
+                        <Button bsStyle="warning">
+                            <Link to={`/edit-user/${this.state.id}`}>
+                                Edit
+                            </Link>
+                        </Button>
                     </ListGroupItem>
                     <ListGroupItem bsStyle="danger">
                         <Button bsStyle="danger">DELETE</Button>

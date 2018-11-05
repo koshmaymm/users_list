@@ -10,21 +10,6 @@ const MainMenu = () => {
             home
           </Link>
         </Button>
-        <Button>
-          <Link to="/about">
-            About
-          </Link>
-        </Button>
-        <Button>
-          <Link to="/code">
-            code
-          </Link>
-        </Button>
-        <Button>
-          <Link to="/contact">
-            contact
-          </Link>
-        </Button>
       </ButtonGroup>
     );
   };
