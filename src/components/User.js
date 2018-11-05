@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-
-import axios from 'axios'
-
+import axios from 'axios';
 import { USERS_LIST_URL } from '../constants/index';
 
 class User extends Component {
@@ -19,7 +17,6 @@ class User extends Component {
 
     componentDidMount() {
         this.getUserId();
-        //this.getUserData();
     }
 
     getUserId() {
@@ -33,7 +30,14 @@ class User extends Component {
     getUserData() {
         if(this.state.id !== null) {
             axios.get(`${USERS_LIST_URL}${this.state.id}`)
-            .then(response => console.log(response))
+            .then(response => {
+                console.log(response);
+            })
+            .catch((err) => {
+                this.setState({
+                  error: err.toString()
+                })
+            });
         }
     }
 
@@ -42,7 +46,17 @@ class User extends Component {
             return "Loading"
         }
 
-        return(
+        if(this.state.error) {
+            return (
+                <h1>
+                  Some problem with user data request
+                  <br />
+                  {this.state.error}
+                </h1>
+            )
+        }
+
+        return (
             <h1>This is User Page with ID {this.state.id}</h1>
         )
     }

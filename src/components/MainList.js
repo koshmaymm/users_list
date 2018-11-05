@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import { Jumbotron, Button } from 'react-bootstrap';
 import { USERS_LIST_URL } from '../constants/index';
 
@@ -20,14 +21,13 @@ class MainList extends Component {
     }
   
     getUsersListData() {
-            fetch(USERS_LIST_URL)
+              axios.get(USERS_LIST_URL)
               .then(res => {
-              return res.json()
-            }).then(res => {
                 this.setState({
-                  listOfUsers: [...this.state.listOfUsers, ...res]
+                  listOfUsers: [...this.state.listOfUsers, ...res.data]
                 })
-              }).catch((err) => {
+              })
+              .catch((err) => {
                 this.setState({
                   error: err.toString()
                 })
