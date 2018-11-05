@@ -16,12 +16,15 @@ import moment from "moment";
 import "react-datepicker/dist/react-datepicker.css";
 import { USERS_LIST_URL } from '../constants/index';
 
+const smallLength = 256;
+const biographyLength = 1024;
 class EditUser extends Component {
     constructor(props) {
         super(props);
         this.state = {
           startDate: moment(),
-          error: null,
+          error_request: null,
+          errors: {},
           id: null,
           first_name: null,
           last_name: null,
@@ -36,6 +39,8 @@ class EditUser extends Component {
         this.getUserData = this.getUserData.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleChangeBirthday = this.handleChangeBirthday.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.validateFields = this.validateFields.bind(this);
     }
 
     componentDidMount() {
@@ -50,10 +55,10 @@ class EditUser extends Component {
             });
         } else {
             this.setState({
-                id: 1,
+                id: null,
                 first_name: '',
                 last_name: '',
-                birth_date: moment(),
+                birth_date: this.state.startDate.format('YYYY-MM-DD'),
                 gender: 'male',
                 job: '',
                 biography: '',
@@ -66,10 +71,14 @@ class EditUser extends Component {
         const name = e.target.name;
         let val = e.target.value;
         if (name === "is_active") { val = e.target.checked }
-        this.setState({ [name]: val});
+        this.setState({ 
+            [name]: val,
+            errors: {}
+        });
     }
 
     handleChangeBirthday(date){
+        console.log(date.format('YYYY-MM-DD'))
         this.setState({ 
             birth_date: date.format('YYYY-MM-DD'),
             startDate: date,
@@ -94,23 +103,60 @@ class EditUser extends Component {
             })
             .catch((err) => {
                 this.setState({
-                  error: err.toString()
+                  error_request: err.toString()
                 })
             });
         }
     }
 
+    validateFields(){
+        const fields = this.state;
+        if(fields.first_name.length > smallLength) {
+            this.setState({
+                errors: {first_name:"Name should be less then 256 symbols "} 
+            }); 
+        } else if(fields.last_name.length > smallLength) {
+            this.setState({
+                errors: {last_name:"Surname should be less then 256 symbols "} 
+            }); 
+        } else if(fields.job.length > smallLength) {
+            this.setState({
+                errors: {job:"Job should be less then 256 symbols "} 
+            }); 
+        } else if(fields.biography.length > biographyLength) {
+            this.setState({
+                errors: {biography:"Biography should be less then 256 symbols "} 
+            }); 
+        } else {
+            this.setState({
+                errors: {} 
+            });
+        }
+    }
+
+    handleSubmit(event){
+        event.preventDefault();
+        this.validateFields()
+        if(this.state.id === null) {
+            console.log("without id");
+        } else {
+            console.log("with id");
+        }
+        
+    }
+
     render() {
-        if(!this.state.id || !this.state.gender || !this.state.birth_date) {
+        console.log(this.state)
+        if(!this.state.gender || !this.state.birth_date) {
             return "Loading"
         }
         
-        if(this.state.error) {
+        if(this.state.error_request) {
             return (
                 <h1>
                   Some problem with user data request
                   <br />
-                  {this.state.error}
+                  {this.state.error_request}
                 </h1>
             )
         }
@@ -121,7 +167,7 @@ class EditUser extends Component {
                     This is page of Edit/New User
                 </PageHeader>
 
-                <Form horizontal>
+                <Form horizontal onSubmit={(e) => this.handleSubmit(e)}>
                     <FormGroup controlId="formHorizontalFirstName">
                         <Col componentClass={ControlLabel} sm={5}>
                             Name
@@ -160,7 +206,7 @@ class EditUser extends Component {
                         </Col>
                         <Col sm={7}>
                             <DatePicker
-                                selected={this.state.startDate}
+                                value={this.state.birth_date}
                                 onChange={this.handleChangeBirthday}
                                 dateFormat="YYYY-MM-DD"
                                 className="datepicker"
@@ -237,6 +283,15 @@ class EditUser extends Component {
                     <FormGroup>
                         <Col smOffset={5} sm={5}>
                             <Button type="submit" bsStyle="success">Save Info</Button>
+                        </Col>
+                    </FormGroup>
+
+                    <FormGroup>
+                        <Col smOffset={5} sm={7}>
+                            {this.state.errors.first_name}
+                            {this.state.errors.last_name}
+                            {this.state.errors.job}
+                            {this.state.errors.biography}
                         </Col>
                     </FormGroup>
                 </Form>
