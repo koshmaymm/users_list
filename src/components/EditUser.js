@@ -88,7 +88,6 @@ class EditUser extends Component {
     }
 
     render() {
-        
         if(!this.state.id || !this.state.gender || !this.state.birth_date) {
             return "Loading"
         }
@@ -108,6 +107,7 @@ class EditUser extends Component {
                 <PageHeader className="user_header">
                     This is edit page with data from user ID {this.state.id}
                 </PageHeader>
+
                 <Form horizontal>
                     <FormGroup controlId="formHorizontalFirstName">
                         <Col componentClass={ControlLabel} sm={5}>
@@ -153,8 +153,6 @@ class EditUser extends Component {
                         </Col>
                     </FormGroup>
                     
-                    
-
                     <FormGroup controlId="formControlsSelect">
                         <Col componentClass={ControlLabel} sm={5}>
                             Gender
@@ -189,18 +187,18 @@ class EditUser extends Component {
                     </FormGroup>
 
                     <FormGroup controlId="formHorizontalBiography">
-                    <Col componentClass={ControlLabel} sm={5}>
-                        <ControlLabel>Biography</ControlLabel>
-                    </Col>
-                    <Col sm={7}>
-                        <FormControl
-                            componentClass="textarea" 
-                            placeholder="Biography"
-                            value={this.state.biography}
-                            onChange={this.handleChange}
-                            name="biography"
-                        />
-                    </Col>
+                        <Col componentClass={ControlLabel} sm={5}>
+                            <ControlLabel>Biography</ControlLabel>
+                        </Col>
+                        <Col sm={7}>
+                            <FormControl
+                                componentClass="textarea" 
+                                placeholder="Biography"
+                                value={this.state.biography}
+                                onChange={this.handleChange}
+                                name="biography"
+                            />
+                        </Col>
                     </FormGroup>
 
                     <FormGroup>
