@@ -141,7 +141,7 @@ class EditUser extends Component {
 
                     <FormGroup controlId="formHorizontalBirthday">
                         <Col componentClass={ControlLabel} sm={5}>
-                        Birthday
+                            Birthday
                         </Col>
                         <Col sm={7}>
                             <DatePicker
