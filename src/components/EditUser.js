@@ -120,6 +120,7 @@ class EditUser extends Component {
                                 value={this.state.first_name}
                                 onChange={this.handleChange}
                                 name="first_name"
+                                maxLength="256"
                             />
                         </Col>
                     </FormGroup>
@@ -135,6 +136,7 @@ class EditUser extends Component {
                                 value={this.state.last_name}
                                 onChange={this.handleChange}
                                 name="last_name"
+                                maxLength="256"
                             />
                         </Col>
                     </FormGroup>
@@ -182,6 +184,7 @@ class EditUser extends Component {
                                 value={this.state.job}
                                 onChange={this.handleChange}
                                 name="job"
+                                maxLength="256"
                             />
                         </Col>
                     </FormGroup>
@@ -197,6 +200,7 @@ class EditUser extends Component {
                                 value={this.state.biography}
                                 onChange={this.handleChange}
                                 name="biography"
+                                maxLength="1024"
                             />
                         </Col>
                     </FormGroup>
