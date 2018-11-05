@@ -31,3 +31,6 @@ body {
 .user_header {
   text-align: center;
 }
+.datepicker{
+  padding-left: 12px;
+}

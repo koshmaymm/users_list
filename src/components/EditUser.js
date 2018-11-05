@@ -10,12 +10,17 @@ import {
     ControlLabel, 
     Checkbox 
 } from 'react-bootstrap';
+import DatePicker from "react-datepicker";
+import moment from "moment";
+ 
+import "react-datepicker/dist/react-datepicker.css";
 import { USERS_LIST_URL } from '../constants/index';
 
 class EditUser extends Component {
     constructor(props) {
         super(props);
         this.state = {
+          startDate: moment(),
           error: null,
           id: null,
           first_name: null,
@@ -30,6 +35,7 @@ class EditUser extends Component {
         this.getUserId = this.getUserId.bind(this);
         this.getUserData = this.getUserData.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleChangeBirthday = this.handleChangeBirthday.bind(this);
     }
 
     componentDidMount() {
@@ -48,6 +54,13 @@ class EditUser extends Component {
         let val = e.target.value;
         if (name === "is_active") { val = e.target.checked }
         this.setState({ [name]: val});
+    }
+
+    handleChangeBirthday(date){
+        this.setState({ 
+            birth_date: date.format('YYYY-MM-DD'),
+            startDate: date,
+        });
     }
 
     getUserData() {
@@ -75,10 +88,11 @@ class EditUser extends Component {
     }
 
     render() {
-        if(!this.state.id || !this.state.gender ) {
+        
+        if(!this.state.id || !this.state.gender || !this.state.birth_date) {
             return "Loading"
         }
-
+        
         if(this.state.error) {
             return (
                 <h1>
@@ -124,6 +138,22 @@ class EditUser extends Component {
                             />
                         </Col>
                     </FormGroup>
+
+                    <FormGroup controlId="formHorizontalBirthday">
+                        <Col componentClass={ControlLabel} sm={5}>
+                        Birthday
+                        </Col>
+                        <Col sm={7}>
+                            <DatePicker
+                                selected={this.state.startDate}
+                                onChange={this.handleChangeBirthday}
+                                dateFormat="YYYY-MM-DD"
+                                className="datepicker"
+                            />
+                        </Col>
+                    </FormGroup>
+                    
+                    
 
                     <FormGroup controlId="formControlsSelect">
                         <Col componentClass={ControlLabel} sm={5}>
