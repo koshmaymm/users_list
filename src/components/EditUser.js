@@ -149,7 +149,7 @@ class EditUser extends Component {
             axios({
                 method: 'put',
                 // url:"http://httpbin.org/put", *** only for test put request ***
-                url: `${USERS_LIST_URL}${id}`,
+                url: `${USERS_LIST_URL}${id}/`,
                 data: userObjInfo
               })
             .then(response => {
