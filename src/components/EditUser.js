@@ -111,8 +111,6 @@ class EditUser extends Component {
     setEditInfo() {
         const { first_name, last_name, birth_date, gender, job, biography, is_active ,id } = this.state;
 
-        console.log(first_name, last_name, birth_date, gender, job, biography, is_active)
-
         if(id === null) {
             const userObjInfo = {
                 first_name,
