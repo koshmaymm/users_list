@@ -40,7 +40,6 @@ class EditUser extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleChangeBirthday = this.handleChangeBirthday.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.validateFields = this.validateFields.bind(this);
     }
 
     componentDidMount() {
@@ -109,44 +108,84 @@ class EditUser extends Component {
         }
     }
 
-    validateFields(){
-        const fields = this.state;
-        if(fields.first_name.length > smallLength) {
-            this.setState({
-                errors: {first_name:"Name should be less then 256 symbols "} 
-            }); 
-        } else if(fields.last_name.length > smallLength) {
-            this.setState({
-                errors: {last_name:"Surname should be less then 256 symbols "} 
-            }); 
-        } else if(fields.job.length > smallLength) {
-            this.setState({
-                errors: {job:"Job should be less then 256 symbols "} 
-            }); 
-        } else if(fields.biography.length > biographyLength) {
-            this.setState({
-                errors: {biography:"Biography should be less then 256 symbols "} 
-            }); 
-        } else {
-            this.setState({
-                errors: {} 
+    setEditInfo() {
+        const { first_name, last_name, birth_date, gender, job, biography, is_active ,id } = this.state;
+
+        console.log(first_name, last_name, birth_date, gender, job, biography, is_active)
+
+        if(id === null) {
+            const userObjInfo = {
+                first_name,
+                last_name,
+                birth_date,
+                gender,
+                job,
+                biography,
+                is_active,
+            }
+
+            axios({
+                method: 'post',
+                url: `${USERS_LIST_URL}`,
+                data: userObjInfo
+              })
+            .catch((err) => {
+                this.setState({
+                  error_request: err.toString()
+                })
             });
+            
+        } else {
+            console.log("with id");
+            
         }
     }
 
     handleSubmit(event){
         event.preventDefault();
-        this.validateFields()
-        if(this.state.id === null) {
-            console.log("without id");
+        const fields = this.state;
+        if(fields.first_name.length > smallLength || fields.first_name.length === 0) {
+            this.setState({
+                errors: {
+                    first_name:`Name should be less then 
+                                ${smallLength}
+                                symbols and bigger then 0`
+                } 
+            }); 
+        } else if(fields.last_name.length > smallLength || fields.last_name.length === 0) {
+            this.setState({
+                errors: {
+                    last_name:`Surname should be less then
+                    ${smallLength}
+                    symbols and bigger then 0`
+                } 
+            }); 
+        } else if(fields.job.length > smallLength || fields.job.length === 0) {
+            this.setState({
+                errors: {
+                    job:`Job should be less then 
+                    ${smallLength} 
+                    symbols and bigger then 0`
+                } 
+            }); 
+        } else if(fields.biography.length > biographyLength || fields.biography.length === 0) {
+            this.setState({
+                errors: {
+                    biography:`Biography should be less then 
+                                ${biographyLength} 
+                                symbols and bigger then 0`
+                } 
+            }); 
         } else {
-            console.log("with id");
-        }
-        
+            this.setState({ 
+                errors: {}
+            }, () => {
+                this.setEditInfo();
+            });
+        }        
     }
 
     render() {
-        console.log(this.state)
         if(!this.state.gender || !this.state.birth_date) {
             return "Loading"
         }
