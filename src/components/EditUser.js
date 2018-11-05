@@ -135,7 +135,32 @@ class EditUser extends Component {
             
         } else {
             console.log("with id");
-            
+            const userObjInfo = {
+                first_name,
+                last_name,
+                birth_date,
+                gender,
+                job,
+                biography,
+                is_active,
+                id,
+            }
+
+            axios({
+                method: 'put',
+                // url:"http://httpbin.org/put", *** only for test put request ***
+                url: `${USERS_LIST_URL}${id}`,
+                data: userObjInfo
+              })
+            .then(response => {
+                const data = response.data;
+                console.log(data);
+            })
+            .catch((err) => {
+                this.setState({
+                  error_request: err.toString()
+                })
+            });
         }
     }
 

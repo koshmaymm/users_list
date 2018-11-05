@@ -7,9 +7,14 @@ const MainMenu = () => {
       <ButtonGroup>
         <Button>
           <Link to="/">
-            home
+            All Users
           </Link>
         </Button>
+        <Button>
+        <Link to="/edit-user/">
+          Add new user
+        </Link>
+      </Button>
       </ButtonGroup>
     );
   };
