@@ -77,7 +77,6 @@ class EditUser extends Component {
     }
 
     handleChangeBirthday(date){
-        console.log(date.format('YYYY-MM-DD'))
         this.setState({ 
             birth_date: date.format('YYYY-MM-DD'),
             startDate: date,
@@ -134,7 +133,6 @@ class EditUser extends Component {
             });
             
         } else {
-            console.log("with id");
             const userObjInfo = {
                 first_name,
                 last_name,
@@ -151,10 +149,6 @@ class EditUser extends Component {
                 url: `${USERS_LIST_URL}${id}/`,
                 data: userObjInfo
               })
-            .then(response => {
-                const data = response.data;
-                console.log(data);
-            })
             .catch((err) => {
                 this.setState({
                   error_request: err.toString()
