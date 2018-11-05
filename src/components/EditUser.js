@@ -44,9 +44,22 @@ class EditUser extends Component {
 
     getUserId() {
         const id = this.props.match.params.id;
-        this.setState({ id }, () => {
-            this.getUserData();
-        }); 
+        if(id) {
+            this.setState({ id }, () => {
+                this.getUserData();
+            });
+        } else {
+            this.setState({
+                id: 1,
+                first_name: '',
+                last_name: '',
+                birth_date: moment(),
+                gender: 'male',
+                job: '',
+                biography: '',
+                is_active: true,
+            });
+        }
     }
 
     handleChange(e) {
@@ -68,7 +81,7 @@ class EditUser extends Component {
             axios.get(`${USERS_LIST_URL}${this.state.id}`)
             .then(response => {
                 const data = response.data;
-                this.setState({ 
+                this.setState({
                     id: data.id,
                     first_name: data.first_name,
                     last_name: data.last_name,
@@ -105,7 +118,7 @@ class EditUser extends Component {
         return (
             <Fragment>
                 <PageHeader className="user_header">
-                    This is edit page with data from user ID {this.state.id}
+                    This is page of Edit/New User
                 </PageHeader>
 
                 <Form horizontal>

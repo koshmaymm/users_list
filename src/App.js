@@ -25,7 +25,7 @@ class App extends Component {
             <Col xs={12} md={12}>
               <Route exact path="/" component={MainList} />
               <Route path="/users/:id" component={User}/>
-              <Route path="/edit-user/:id" component={EditUser}/>
+              <Route path="/edit-user/:id?" component={EditUser}/>
             </Col>
           </Row>
         </Grid>
